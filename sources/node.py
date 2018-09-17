@@ -37,6 +37,7 @@ class Node:
 			parent.toggleOpen(False)
 		else:
 			self.dist_from_start = 0
+
 		self.dist_heuristic = 0 # TEMP : TO CALCUL
 
 		Node.nb_node += 1
