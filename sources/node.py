@@ -17,31 +17,23 @@ class Node:
 	nb_node = 0
 	nb_node_open = 0
 
-	'non static'
-	open = True
-	parent = None
-	puzzle = None
-
-	dist_from_start = 0
-	dist_heuristic = None
-
 	""" g(n) pointeur distance heuristic """
 
 	def __init__(self, parent, puzzle):
 		self.parent = parent
 		self.puzzle = puzzle
-		self.hash = puzzle.__hash__()
+		self.open = True
 
 		if parent is not None:
-			self.dist_from_start = parent.dist_from_start + 1
 			parent.toggleOpen(False)
+			self.dist_from_start = parent.dist_from_start + 1
 		else:
 			self.dist_from_start = 0
 
 		self.dist_heuristic = 0 # TEMP : TO CALCUL
 
 		Node.nb_node += 1
-		self.toggleOpen(True)
+		Node.nb_node_open += 1
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
@@ -49,6 +41,7 @@ class Node:
 		+ 'dist heuristic: ' + str(self.dist_heuristic) + '\n'
 		+ 'Puzzle: \n' + str(self.puzzle))
 
+	'change the <open> status of the node'
 	def toggleOpen(self, value):
 		if self.open != value:
 			if value:
