@@ -50,6 +50,6 @@ class Node:
 				Node.nb_node_open -= 1
 		self.open = value
 
-node = Node(None, ((1, 2, 3), (4, 5, 6), (7, 8, 0)))
+node = Node(None, [])
 
 print node

@@ -27,6 +27,7 @@ class Puzzle:
 	def __init__(self, puzzle):
 		self.puzzle = puzzle
 		self.size = len(puzzle)
+		self.hash = puzzle.__hash__
 	
 	def __str__(self):
 		string = ''
@@ -112,4 +113,4 @@ puzzle = Puzzle([
 ])
 
 print puzzle
-print str(puzzle.get_available_movements()) + '\n'
+print str(puzzle.get_available_movements())
