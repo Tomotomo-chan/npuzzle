@@ -90,16 +90,6 @@ class PuzzleGenerator:
 			index.column += 1
 		return puzzle
 
-	'Create a list of list of the given size fill of zero. It\'s an empty puzzle.'
-	def generate_empty_puzzle(self, size):
-		if size < 0:
-			return None
-		
-		basic_puzzle = []
-		for i in range(size):
-			basic_puzzle.append([0] * size)
-		return basic_puzzle
-
 	"""
 	Generate a random puzzle with a given size
 	"""
@@ -116,15 +106,25 @@ class PuzzleGenerator:
 			puzzle.apply_movement(Puzzle.empty_piece, movement)
 		return puzzle
 
+	'Create a list of list of the given size fill of zero. It\'s an empty puzzle.'
+	def generate_empty_puzzle(self, size):
+		if size < 0:
+			return None
+		
+		basic_puzzle = []
+		for i in range(size):
+			basic_puzzle.append([0] * size)
+		return basic_puzzle
+
+puzzle_generator = PuzzleGenerator()
+
 ## EXAMPLE
 # ------ GENERATOR -------
-# generator = PuzzleGenerator()
 # for i in range(1,5):
-# 	print generator.generate_puzzle(i)
+# 	print puzzle_generator.generate_puzzle(i)
 # 	print "---"
 
 # ------ RANDOMIZE ------
-# generator = PuzzleGenerator()
 # for i in range(1,5):
-# 	print generator.generate_random_puzzle(i)
+# 	print puzzle_generator.generate_random_puzzle(i)
 # 	print "---"
