@@ -66,6 +66,7 @@ class Puzzle:
 			available_movements.append(PuzzleMovement.down)
 		if piece_index.column + 1 < self.size:
 			available_movements.append(PuzzleMovement.right)
+
 		return available_movements
 
 	'Apply movement on the empty piece of the puzzle'
@@ -83,39 +84,45 @@ class Puzzle:
 		}
 
 		options[move](piece_index)
+		return
 
 	'Move the piece at index up'
 	def up(self, index):
 		if index.line > 0:
 			self.puzzle[index.line][index.column] = self.puzzle[index.line - 1][index.column]
 			self.puzzle[index.line - 1][index.column] = 0
+		return
 	
 	'Move the piece at index down'
 	def down(self, index):
 		if index.line + 1 < self.size:
 			self.puzzle[index.line][index.column] = self.puzzle[index.line + 1][index.column]
 			self.puzzle[index.line + 1][index.column] = 0
+		return
 	
 	'Move the piece at index to the left'
 	def left(self, index):
 		if index.column > 0:
 			self.puzzle[index.line][index.column] = self.puzzle[index.line][index.column - 1]
 			self.puzzle[index.line][index.column - 1] = 0
+		return
 	
 	'Move the piece at index to the right'
 	def right(self, index):
 		if index.column + 1 < self.size:
 			self.puzzle[index.line][index.column] = self.puzzle[index.line][index.column + 1]
 			self.puzzle[index.line][index.column + 1] = 0
+		return
+
 
 ## EXAMPLES
-puzzle = Puzzle([
-	[1, 0, 3],
-	[4, 5, 6],
-	[7, 8, 2]
-])
+# puzzle = Puzzle([
+# 	[1, 0, 3],
+# 	[4, 5, 6],
+# 	[7, 8, 2]
+# ])
 
-print puzzle
-puzzle.apply_movement(Puzzle.empty_piece, PuzzleMovement.down)
-print puzzle
-print str(puzzle.get_available_movements(Puzzle.empty_piece))
+# print puzzle
+# puzzle.apply_movement(Puzzle.empty_piece, PuzzleMovement.down)
+# print puzzle
+# print str(puzzle.get_available_movements(Puzzle.empty_piece))

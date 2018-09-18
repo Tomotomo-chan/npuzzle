@@ -51,6 +51,7 @@ class Node:
 				Node.nb_node_open -= 1
 		self.open = value
 
-node = Node(None, [], None)
 
-print node
+## EXAMPLE
+# node = Node(None, [], None)
+# print node
