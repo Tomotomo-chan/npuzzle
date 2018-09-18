@@ -19,10 +19,11 @@ class Node:
 
 	""" g(n) pointeur distance heuristic """
 
-	def __init__(self, parent, puzzle):
+	def __init__(self, parent, puzzle, movement):
 		self.parent = parent
 		self.puzzle = puzzle
 		self.open = True
+		self.movement = movement
 
 		if parent is not None:
 			parent.toggleOpen(False)
@@ -50,6 +51,6 @@ class Node:
 				Node.nb_node_open -= 1
 		self.open = value
 
-node = Node(None, [])
+node = Node(None, [], None)
 
 print node
