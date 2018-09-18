@@ -11,14 +11,7 @@
 # **************************************************************************** #
 
 from PuzzleMovement import PuzzleMovement
-
-class PuzzleIndex:
-	def __init__(self, line, column):
-		self.line = line
-		self.column = column
-
-	def __str__(self):
-		return 'line: ' + str(self.line) + ', col: ' + str(self.column)
+from PuzzleIndex import PuzzleIndex
 
 class Puzzle:
 
@@ -43,10 +36,10 @@ class Puzzle:
 
 	'Get the index of the piece with the given value if it exist'
 	def get_piece_index(self, value):
-		for lineIndex in range(self.size):
-			for colIndex in range(self.size):
-				if self.puzzle[lineIndex][colIndex] is value:
-					return PuzzleIndex(lineIndex, colIndex)
+		for line_index in range(self.size):
+			for col_index in range(self.size):
+				if self.puzzle[line_index][col_index] is value:
+					return PuzzleIndex(line_index, col_index)
 		return None
 
 	'Get the movement available on the piece of value in the puzzle'
