@@ -34,7 +34,7 @@ class Node:
 		self.dist_heuristic = 0 # TEMP : TO CALCUL
 
 		Node.nb_node += 1
-		Node.nb_node_open += 1
+		print str(self)
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
