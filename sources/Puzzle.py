@@ -38,7 +38,10 @@ class Puzzle:
 			if len(string) is not 0:
 				string += '\n'
 			for piece in line:
-				string += str(piece)
+				if self.size < 10:
+					string += str('%(number)3d' % {"number": piece})
+				else:
+					string += str('%(number)5d' % {"number": piece})
 				string += ' '
 		return string
 
@@ -49,6 +52,13 @@ class Puzzle:
 				if self.puzzle[line_index][col_index] is value:
 					return PuzzleIndex(line_index, col_index)
 		return None
+
+	def get_value_at_index(self, index):
+		return self.puzzle[index.line][index.column]
+	
+	def set_value_at_index(self, index, value):
+		self.puzzle[index.line][index.column] = value
+		return
 
 	'Get the movement available on the piece of value in the puzzle'
 	def get_available_movements(self, piece_value):
