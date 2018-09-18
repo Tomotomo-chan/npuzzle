@@ -53,6 +53,13 @@ class Puzzle:
 					return PuzzleIndex(line_index, col_index)
 		return None
 
+	def get_value_at_index(self, index):
+		return self.puzzle[index.line][index.column]
+	
+	def set_value_at_index(self, index, value):
+		self.puzzle[index.line][index.column] = value
+		return
+
 	'Get the movement available on the piece of value in the puzzle'
 	def get_available_movements(self, piece_value):
 		piece_index = self.get_piece_index(piece_value)

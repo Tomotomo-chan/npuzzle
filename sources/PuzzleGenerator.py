@@ -12,6 +12,7 @@
 
 from Puzzle import *
 from PuzzleIndex import *
+from random import randint
 
 class PuzzleGenerator:
 
@@ -22,7 +23,7 @@ class PuzzleGenerator:
 		if size < 2:
 			return None
 		
-		basic_puzzle = self.generate_empty_puzzle(size)
+		puzzle = Puzzle(self.generate_empty_puzzle(size))
 		index = PuzzleIndex(0, 0)
 		value = 1
 		final_value = size * size
@@ -33,8 +34,8 @@ class PuzzleGenerator:
 			# ....
 			# ....
 			# ....
-			while index.column < size and value_at_index(basic_puzzle, index) is 0 and value < final_value:
-				basic_puzzle[index.line][index.column] = value
+			while index.column < size and puzzle.get_value_at_index(index) is 0 and value < final_value:
+				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.column += 1
 			
@@ -48,8 +49,8 @@ class PuzzleGenerator:
 			# ...|
 			# ...|
 			# ...|
-			while index.line < size and value_at_index(basic_puzzle, index) is 0 and value < final_value:
-				basic_puzzle[index.line][index.column] = value
+			while index.line < size and puzzle.get_value_at_index(index) is 0 and value < final_value:
+				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.line += 1
 			
@@ -63,8 +64,8 @@ class PuzzleGenerator:
 			# ...x
 			# ...x
 			# ----
-			while index.column >= 0 and value_at_index(basic_puzzle, index) is 0 and value < final_value:
-				basic_puzzle[index.line][index.column] = value
+			while index.column >= 0 and puzzle.get_value_at_index(index) is 0 and value < final_value:
+				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.column -= 1
 			
@@ -78,8 +79,8 @@ class PuzzleGenerator:
 			# |..x
 			# |..x
 			# xxxx
-			while index.line >= 0 and value_at_index(basic_puzzle, index) is 0 and value < final_value:
-				basic_puzzle[index.line][index.column] = value
+			while index.line >= 0 and puzzle.get_value_at_index(index) is 0 and value < final_value:
+				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.line -= 1
 			
@@ -87,8 +88,7 @@ class PuzzleGenerator:
 			index.line += 1
 			# Move right to the next column.
 			index.column += 1
-
-		return Puzzle(basic_puzzle)
+		return puzzle
 
 	'Create a list of list of the given size fill of zero. It\'s an empty puzzle.'
 	def generate_empty_puzzle(self, size):
@@ -101,17 +101,30 @@ class PuzzleGenerator:
 		return basic_puzzle
 
 	"""
-	Randomize a puzzle
+	Generate a random puzzle with a given size
 	"""
-	def randomize_puzzle(self, puzzle):
-		return
+	def generate_random_puzzle(self, size):
+		puzzle = self.generate_puzzle(size)
+		if puzzle is None:
+			return
 
-""" global """
-def value_at_index(puzzle, index):
-	return puzzle[index.line][index.column]
+		nb_mixed = size * size * 100
 
+		for i in range(nb_mixed):
+			scope = puzzle.get_available_movements(Puzzle.empty_piece)
+			movement = scope[randint(0, len(scope) - 1)]
+			puzzle.apply_movement(Puzzle.empty_piece, movement)
+		return puzzle
 
-generator = PuzzleGenerator()
-for i in range(1,15):
-	print generator.generate_puzzle(i)
-	print "---"
+## EXAMPLE
+# ------ GENERATOR -------
+# generator = PuzzleGenerator()
+# for i in range(1,5):
+# 	print generator.generate_puzzle(i)
+# 	print "---"
+
+# ------ RANDOMIZE ------
+# generator = PuzzleGenerator()
+# for i in range(1,5):
+# 	print generator.generate_random_puzzle(i)
+# 	print "---"
