@@ -26,15 +26,14 @@ class PuzzleGenerator:
 		puzzle = Puzzle(self.generate_empty_puzzle(size))
 		index = PuzzleIndex(0, 0)
 		value = 1
-		final_value = size * size
 
-		while value < final_value:
+		while value < puzzle.value_max:
 			# fill first line
 			# ----
 			# ....
 			# ....
 			# ....
-			while index.column < size and puzzle.get_value_at_index(index) is 0 and value < final_value:
+			while index.column < size and puzzle.get_value_at_index(index) is 0 and value < puzzle.value_max:
 				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.column += 1
@@ -49,7 +48,7 @@ class PuzzleGenerator:
 			# ...|
 			# ...|
 			# ...|
-			while index.line < size and puzzle.get_value_at_index(index) is 0 and value < final_value:
+			while index.line < size and puzzle.get_value_at_index(index) is 0 and value < puzzle.value_max:
 				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.line += 1
@@ -64,7 +63,7 @@ class PuzzleGenerator:
 			# ...x
 			# ...x
 			# ----
-			while index.column >= 0 and puzzle.get_value_at_index(index) is 0 and value < final_value:
+			while index.column >= 0 and puzzle.get_value_at_index(index) is 0 and value < puzzle.value_max:
 				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.column -= 1
@@ -79,7 +78,7 @@ class PuzzleGenerator:
 			# |..x
 			# |..x
 			# xxxx
-			while index.line >= 0 and puzzle.get_value_at_index(index) is 0 and value < final_value:
+			while index.line >= 0 and puzzle.get_value_at_index(index) is 0 and value < puzzle.value_max:
 				puzzle.set_value_at_index(index, value)
 				value += 1
 				index.line -= 1
@@ -98,7 +97,7 @@ class PuzzleGenerator:
 		if puzzle is None:
 			return
 
-		nb_mixed = size * size * 100
+		nb_mixed = size ** 2 * 100
 
 		for i in range(nb_mixed):
 			scope = puzzle.get_available_movements(Puzzle.empty_piece)

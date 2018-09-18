@@ -56,9 +56,8 @@ class PuzzleCompare:
 		
 		copy_mixed = copy.deepcopy(puzzle_mixed)
 		nb_permutation = 0
-		value_max = puzzle_ref.size * puzzle_ref.size
 
-		for value in range(value_max):
+		for value in range(puzzle_ref.value_max):
 			if self.is_value_on_ref_position(value, puzzle_ref, copy_mixed) is False:
 				nb_permutation += 1
 				self.put_value_on_ref_position(value, puzzle_ref, copy_mixed)
