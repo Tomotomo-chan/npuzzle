@@ -14,11 +14,19 @@ from PuzzleMovement import PuzzleMovement
 from PuzzleIndex import PuzzleIndex
 
 class Puzzle:
-
-	empty_piece = 0
-	
 	"""" Represent a NPuzzle grid """
 
+	'Static variable'
+	empty_piece = 0
+
+	"""
+	Init a puzzle.
+	A puzzle must be a list of list as
+	[[1, 0, 3],
+	 [4, 5, 6],
+	 [7, 8, 2]]
+	of which size you want, as long as it's a square
+	"""
 	def __init__(self, puzzle):
 		self.puzzle = puzzle
 		self.size = len(puzzle)
