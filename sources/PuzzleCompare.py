@@ -64,6 +64,19 @@ class PuzzleCompare:
 				self.put_value_on_ref_position(value, puzzle_ref, copy_mixed)
 		return nb_permutation
 
+	"""
+	Take a look on wikipedia to understand
+
+	If the parity of the number of move needed to put the empty piece on its reference position
+	is the same as the parity of the number of permutation needed to put the puzzle on its reference configuration
+	so the puzzle is solvable
+	"""
+	def is_solvable(self, initial_puzzle, final_puzzle):
+		nb_move = self.nb_move_needed_for_value(Puzzle.empty_piece, initial_puzzle, final_puzzle)
+		nb_permutation = self.nb_permutation_needed(initial_puzzle, final_puzzle)
+
+		return nb_move % 2 is nb_permutation % 2
+
 	'return true if the value is on the same position on both puzzles'
 	def is_value_on_ref_position(self, value, puzzle_ref, puzzle_mixed):
 		index_ref = puzzle_ref.get_piece_index(value)
@@ -90,7 +103,7 @@ puzzle_compare = PuzzleCompare()
 ## EXAMPLE
 # from PuzzleGenerator import *
 
-# size = 3
+# size = 10
 # puzzle = puzzle_generator.generate_puzzle(size)
 # random_puzzle = puzzle_generator.generate_random_puzzle(size)
 
