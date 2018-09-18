@@ -1,24 +1,7 @@
-import argparse
 import sys
 import re
 from node import Node
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-e","--heuristic", choices=["One","Two","Tree"], default="One", help="choose the heurtistic")
-parser.add_argument("-f", "--file", type=file, help="read map, if empty read stdin")
-parser.add_argument("-g", "--graphic", action="store_true", help="if True use graphic NPuzzle")
-
-args = parser.parse_args()
-
-if args.file:
-    map = args.file
-else:
-    map = sys.stdin
-
-
-class Env:
-    size = 0
-    first_node = None
+from environment import Env
 
 def parse_map(map):
     first = True
@@ -83,4 +66,3 @@ def parse_map_value(puzzle):
             value[num] = 1
     return
 
-parse_map(map)
