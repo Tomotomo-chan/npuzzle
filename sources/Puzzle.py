@@ -99,30 +99,33 @@ class Puzzle:
 	'Move the piece at index up'
 	def up(self, index):
 		if index.line > 0:
-			self.puzzle[index.line][index.column] = self.puzzle[index.line - 1][index.column]
-			self.puzzle[index.line - 1][index.column] = 0
+			self.swap_piece(index, PuzzleIndex(index.line - 1, index.column))
 		return
 	
 	'Move the piece at index down'
 	def down(self, index):
 		if index.line + 1 < self.size:
-			self.puzzle[index.line][index.column] = self.puzzle[index.line + 1][index.column]
-			self.puzzle[index.line + 1][index.column] = 0
+			self.swap_piece(index, PuzzleIndex(index.line + 1, index.column))
 		return
 	
 	'Move the piece at index to the left'
 	def left(self, index):
 		if index.column > 0:
-			self.puzzle[index.line][index.column] = self.puzzle[index.line][index.column - 1]
-			self.puzzle[index.line][index.column - 1] = 0
+			self.swap_piece(index, PuzzleIndex(index.line, index.column - 1))
 		return
 	
 	'Move the piece at index to the right'
 	def right(self, index):
 		if index.column + 1 < self.size:
-			self.puzzle[index.line][index.column] = self.puzzle[index.line][index.column + 1]
-			self.puzzle[index.line][index.column + 1] = 0
+			self.swap_piece(index, PuzzleIndex(index.line, index.column + 1))
 		return
+
+	def swap_piece(self, index1, index2):
+		value1 = self.get_value_at_index(index1)
+		value2 = self.get_value_at_index(index2)
+
+		self.set_value_at_index(index1, value2)
+		self.set_value_at_index(index2, value1)
 
 
 ## EXAMPLES
