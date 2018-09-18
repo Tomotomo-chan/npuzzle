@@ -38,7 +38,10 @@ class Puzzle:
 			if len(string) is not 0:
 				string += '\n'
 			for piece in line:
-				string += str(piece)
+				if self.size < 10:
+					string += str('%(number)3d' % {"number": piece})
+				else:
+					string += str('%(number)5d' % {"number": piece})
 				string += ' '
 		return string
 
