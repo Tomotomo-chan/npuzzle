@@ -32,7 +32,7 @@ class PuzzleCompare:
 	for value '0' : return 2 because we need 2 move
 	to put the 0 piece from the left corner to the center of the puzzle
 	"""
-	def nb_move_needed_to_put_value_in_place(self, value, puzzle_ref, puzzle_mixed):
+	def nb_move_needed_for_value(self, value, puzzle_ref, puzzle_mixed):
 		if puzzle_ref.size is not puzzle_mixed.size:
 			return None
 		
@@ -50,7 +50,7 @@ class PuzzleCompare:
 
 	Indeed, the initial configuration of a npuzzle is a permutation of its final configuration.
 	"""
-	def nb_permutation_needed_to_put_puzzle_in_place(self, puzzle_ref, puzzle_mixed):
+	def nb_permutation_needed(self, puzzle_ref, puzzle_mixed):
 		if puzzle_ref.size is not puzzle_mixed.size:
 			return None
 		
@@ -59,20 +59,28 @@ class PuzzleCompare:
 		value_max = puzzle_ref.size * puzzle_ref.size
 
 		for value in range(value_max):
-			if self.is_value_in_place(value, puzzle_ref, copy_mixed) is False:
+			if self.is_value_on_ref_position(value, puzzle_ref, copy_mixed) is False:
 				nb_permutation += 1
-				self.put_value_in_place(value, puzzle_ref, copy_mixed)
+				self.put_value_on_ref_position(value, puzzle_ref, copy_mixed)
 		return nb_permutation
-	
-	def is_value_in_place(self, value, puzzle_ref, puzzle_mixed):
+
+	'return true if the value is on the same position on both puzzles'
+	def is_value_on_ref_position(self, value, puzzle_ref, puzzle_mixed):
 		index_ref = puzzle_ref.get_piece_index(value)
 		index_mixed = puzzle_mixed.get_piece_index(value)
 
+		if index_ref is None or index_mixed is None:
+			return False
+
 		return index_ref.line is index_mixed.line and index_ref.column is index_mixed.column
-	
-	def put_value_in_place(self, value, puzzle_ref, puzzle_mixed):
+
+	'put value on the position it should have on puzzle_mixed, compared with puzzle_ref'
+	def put_value_on_ref_position(self, value, puzzle_ref, puzzle_mixed):
 		index_ref = puzzle_ref.get_piece_index(value)
 		index_mixed = puzzle_mixed.get_piece_index(value)
+
+		if index_ref is None or index_mixed is None:
+			return False
 		
 		puzzle_mixed.swap_piece(index_ref, index_mixed)
 		return
@@ -80,23 +88,25 @@ class PuzzleCompare:
 puzzle_compare = PuzzleCompare()
 
 ## EXAMPLE
-from PuzzleGenerator import *
+# from PuzzleGenerator import *
 
-size = 3
-puzzle = puzzle_generator.generate_puzzle(size)
-random_puzzle = puzzle_generator.generate_random_puzzle(size)
+# size = 3
+# puzzle = puzzle_generator.generate_puzzle(size)
+# random_puzzle = puzzle_generator.generate_random_puzzle(size)
 
-print '----PUZZLE----'
-print puzzle
-print '----PUZZLE RAND----'
-print random_puzzle
+# print '----PUZZLE----'
+# print puzzle
+# print '----PUZZLE RAND----'
+# print random_puzzle
 
-print 'PARITY : ' + str(puzzle_compare.nb_move_needed_to_put_value_in_place(0, puzzle, random_puzzle))
-print 'NB PERMUTATIONS : ' + str(puzzle_compare.nb_permutation_needed_to_put_puzzle_in_place(puzzle, random_puzzle))
+# print 'NB MOVE : ' + str(puzzle_compare.nb_move_needed_for_value(0, puzzle, random_puzzle))
+# print 'NB PERMUTATIONS : ' + str(puzzle_compare.nb_permutation_needed(puzzle, random_puzzle))
+# print 'IS SOLVABLE : ' + str(puzzle_compare.is_solvable(puzzle, random_puzzle))
 
-print "\n----SWAP PIECE----\n"
-random_puzzle.swap_piece(PuzzleIndex(0, 0), PuzzleIndex(0, 1))
-print random_puzzle
-print '----'
-print 'PARITY : ' + str(puzzle_compare.nb_move_needed_to_put_value_in_place(0, puzzle, random_puzzle))
-print 'NB PERMUTATIONS : ' + str(puzzle_compare.nb_permutation_needed_to_put_puzzle_in_place(puzzle, random_puzzle))
+# print "\n----SWAP PIECE----\n"
+# random_puzzle.swap_piece(PuzzleIndex(0, 0), PuzzleIndex(0, 1))
+# print random_puzzle
+# print '----'
+# print 'NB MOVE : ' + str(puzzle_compare.nb_move_needed_for_value(0, puzzle, random_puzzle))
+# print 'NB PERMUTATIONS : ' + str(puzzle_compare.nb_permutation_needed(puzzle, random_puzzle))
+# print 'IS SOLVABLE : ' + str(puzzle_compare.is_solvable(puzzle, random_puzzle))
