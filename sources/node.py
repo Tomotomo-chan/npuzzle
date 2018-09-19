@@ -14,10 +14,6 @@ from Heuristiques import heuristiques
 
 class Node:
 
-	'static variables'
-	nb_node = 0
-	nb_node_open = 0
-
 	""" g(n) pointeur distance heuristic """
 
 	def __init__(self, parent, puzzle, movement):
@@ -27,15 +23,12 @@ class Node:
 		self.movement = movement
 
 		if parent is not None:
-			parent.toggle_open(False)
 			self.dist_from_start = parent.dist_from_start + 1
 		else:
 			self.dist_from_start = 0
 
 		self.dist_heuristic = heuristiques.calcul_heuristique(puzzle)
 		self.fn = self.dist_heuristic + self.dist_from_start
-
-		Node.nb_node += 1
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
@@ -44,15 +37,6 @@ class Node:
 		+ 'hash: ' + str(self.puzzle.hash) + '\n'
 		+ 'Puzzle: \n' + str(self.puzzle))
 
-
-	'change the <open> status of the node'
-	def toggle_open(self, value):
-		if self.open != value:
-			if value:
-				Node.nb_node_open += 1
-			else:
-				Node.nb_node_open -= 1
-		self.open = value
 
 
 ## EXAMPLE

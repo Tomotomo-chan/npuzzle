@@ -41,7 +41,7 @@ class Heuristiques:
     def manhattan(self, puzzle):
         self.check_default(puzzle)
         tot = 0
-        for i in range(puzzle.size * puzzle.size):
+        for i in range(1, puzzle.size * puzzle.size):
             dist = puzzle_compare.nb_move_needed_for_value(i, self.default_puzzle, puzzle)
             tot += dist
         return tot

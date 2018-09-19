@@ -15,3 +15,14 @@ class PuzzleMovement():
 	down = "down"
 	left = "left"
 	right = "right"
+
+	def opposite(self, move):
+		opposite = {
+			PuzzleMovement.up: PuzzleMovement.down,
+			PuzzleMovement.down: PuzzleMovement.up,
+			PuzzleMovement.left: PuzzleMovement.right,
+			PuzzleMovement.right: PuzzleMovement.left
+		}
+		return opposite[move]
+
+puzzle_movement = PuzzleMovement()

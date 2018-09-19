@@ -1,7 +1,7 @@
 import sys
 import re
 from Node import Node
-from Env import Env
+from Env import env
 from Puzzle import Puzzle
 
 def parse_map(map):
@@ -15,19 +15,19 @@ def parse_map(map):
             continue
         if first is not True:
             puzzle.append(parse_line(line_util))
-            if (len(puzzle) > Env.size):
+            if (len(puzzle) > env.size):
                 sys.stderr.write("Error: parsing map. Too many lines " + '\n')
                 sys.exit()
         else:
             first = False
             parse_line(line_util)
 
-    if (len(puzzle) < Env.size):
+    if (len(puzzle) < env.size):
         sys.stderr.write("Error: parsing map. Not Enought Lines " + '\n')
         sys.exit()
 
     parse_map_value(puzzle)
-    Env.all_nodes.append(Node(None, Puzzle(puzzle), None))
+    env.all_nodes.append(Node(None, Puzzle(puzzle), None))
 
 def to_int(char):
     return int(char)
@@ -43,12 +43,12 @@ def parse_line(line):
         if len(m) != 1:
             sys.stderr.write("Error: parsing map. First Line must be the map size " + '\n')
             sys.exit()
-        Env.size = int(m[0])
+        env.size = int(m[0])
     else:
-        if len(m) < Env.size:
+        if len(m) < env.size:
             sys.stderr.write("Error: parsing map. not enought numbers at line : " + line + '\n')
             sys.exit()
-        elif len(m) > Env.size:
+        elif len(m) > env.size:
             sys.stderr.write("Error: parsing map. too many numbers at line : " + line + '\n')
             sys.exit()
         return [ to_int(num) for num in m ]
@@ -57,10 +57,10 @@ parse_line.first = True
 
 
 def parse_map_value(puzzle):
-    value = [0] * (Env.size * Env.size)
+    value = [0] * (env.size * env.size)
     for line in puzzle:
         for num in line:
-            if num >= Env.size * Env.size:
+            if num >= env.size * env.size:
                 sys.stderr.write("Error: parsing map. value find to high : " + str(num) + '\n')
                 sys.exit()
             if value[num] == 1:
