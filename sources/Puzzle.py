@@ -30,6 +30,7 @@ class Puzzle:
 	def __init__(self, puzzle):
 		self.puzzle = puzzle
 		self.size = len(puzzle)
+		self.value_max = self.size**2
 		self.hash = puzzle.__hash__
 	
 	def __str__(self):
