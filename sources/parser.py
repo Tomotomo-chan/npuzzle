@@ -27,7 +27,7 @@ def parse_map(map):
         sys.exit()
 
     parse_map_value(puzzle)
-    env.all_nodes.append(Node(None, Puzzle(puzzle), None))
+    return Puzzle(puzzle)
 
 def to_int(char):
     return int(char)

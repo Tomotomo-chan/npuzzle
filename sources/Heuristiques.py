@@ -48,7 +48,12 @@ class Heuristiques:
 
     def melange(self, puzzle):
         self.check_default(puzzle)
-        return is_before_table
+        puzzle_before_table = self.create_before_table(puzzle)
+        tot = 0
+        for i in range(len(puzzle_before_table)):
+            if puzzle_before_table[i] != self.default_is_before_table[i]:
+                tot += 1
+        return tot
 
     """ PUBLIC METHODS """
 
