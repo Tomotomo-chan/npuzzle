@@ -22,6 +22,7 @@ class Color:
 class Config:
 	square_size = 100
 	padding = 5
+	font = None
 
 class PuzzleDisplay:
 
@@ -46,6 +47,7 @@ class PuzzleDisplay:
 		self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
 		self.screen.fill(Color.black)
 		self.init_puzzle_on_screen()
+		self.Config.font = pygame.font.SysFont("comicsansms", 16)
 
 		pygame.display.update()
 		

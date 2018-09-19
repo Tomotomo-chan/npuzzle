@@ -9,77 +9,61 @@ import copy
 
 class Solver:
 
-    def __init__(self):
-        self.fn_last_min = sys.maxint
-        
-    count = 0
+	def __init__(self):
+		self.fn_last_min = sys.maxint
 
-    def find_tree_solution(self, node):
-        # print "--- working node ---"
-        # print node
-        # print "---"
-        Solver.count += 1
-        # print Solver.count
-        if node is None:
-            return None
-        
-        # if Solver.count == 10:
-        #     sys.exit()
+	def find_tree_solution(self):
+		count = 0
+		while (len(env.opened_nodes) is not 0):
+			count += 1
+			if count % 100 is 0:
+				print str(count) + ' ' + str(len(env.opened_nodes)) + ' ' + str(len(env.closed_nodes)) + ' ' + str(len(env.all_nodes))
 
-        available_movements = node.puzzle.get_available_movements(Puzzle.empty_piece)
-        for m in available_movements:
-            if node.movement and m is puzzle_movement.opposite(node.movement):
-                continue
-            # print m
-            tmp_puz = copy.deepcopy(node.puzzle)
-            tmp_puz.apply_movement(Puzzle.empty_piece, m)
-            if not self.puzzle_already_exist(tmp_puz):
-                tmp_node = Node(node, tmp_puz, m)
-                env.add_open_node(tmp_node)
-                # print "--- node created ---"
-                # print m
-                # print tmp_node
-                # print "---"
-                if self.is_solution(tmp_node):
-                    print Solver.count
-                    return tmp_node
-        env.close_node(node)
-        # for n in env.all_nodes:
-        #     print "---"
-        #     print n.puzzle
-        return self.find_tree_solution(self.find_node_fn_min())
+			node = self.find_viable_node_with_a_star()
+			if node is None:
+				return None
 
+			if self.is_solution(node):
+				return node
 
-    def find_node_fn_min(self):
-        tmp_node = None
-        for n in env.open_nodes:
-            if tmp_node is None:
-                tmp_node = n
-            elif n.fn < tmp_node.fn:
-                tmp_node = n
-            elif n.fn == tmp_node.fn and n.dist_heuristic < tmp_node.dist_heuristic:
-                tmp_node = n
-        return tmp_node
+			available_movements = node.puzzle.get_available_movements(Puzzle.empty_piece)
 
+			for move in available_movements:
+		   		if node.movement and move is puzzle_movement.opposite(node.movement):
+					continue
+				new_puzzle = copy.deepcopy(node.puzzle)
+				new_puzzle.apply_movement(Puzzle.empty_piece, move)
+				
+				new_node = Node(node, new_puzzle, move)
+				env.add_open_node(new_node)
+				# print "--- node created ---"
+				# print move
+				# print new_node
+				# print "---"
+			env.close_node(node)
 
+		return None
 
-    def puzzle_already_exist(self, puzzle):
-        for n in env.all_nodes:
-            if n.puzzle.hash == puzzle.hash:
-                return True
-        return False
+	def find_viable_node_with_a_star(self):
+		tmp_node = None
+		for n in env.opened_nodes:
+			if tmp_node is None:
+				tmp_node = n
+			elif n.fn < tmp_node.fn:
+				tmp_node = n
+			elif n.fn == tmp_node.fn and n.dist_heuristic < tmp_node.dist_heuristic:
+				tmp_node = n
+		return tmp_node
 
-    def is_solution(self, node):
-        return node.dist_heuristic is 0
+	def is_solution(self, node):
+		return node.dist_heuristic is 0
 
-    def get_puzzle_solution(self, heuristic):
-        heuristiques.change_heuristique(heuristic)
+	def get_puzzle_solution(self, heuristic):
+		heuristiques.change_heuristique(heuristic)
 
-        if self.is_solution(env.all_nodes[0]):
-            return env.all_nodes[0]
+		if self.is_solution(env.all_nodes[0]):
+			return env.all_nodes[0]
 
-
-
-        return self.find_tree_solution(env.all_nodes[0])
+		return self.find_tree_solution()
 
 solver = Solver()

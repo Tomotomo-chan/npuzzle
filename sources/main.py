@@ -42,7 +42,7 @@ else:
     env.size = 4
     env.all_nodes.append(Node(None, puzzle_generator.generate_random_puzzle(env.size), None))
 
-env.open_nodes.append(env.all_nodes[0])
+env.opened_nodes.append(env.all_nodes[0])
 
 heuristiques.init(env.size)
 
