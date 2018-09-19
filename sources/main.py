@@ -11,13 +11,17 @@
 # **************************************************************************** #
 
 import argparse
-from parser import parse_map
+from Parser import parse_map
 from PuzzleGenerator import puzzle_generator
-from environment import Env
-from node import Node
+from Env import Env
+from Node import Node
 from Puzzle import Puzzle
+from Solver import *
+from Heuristiques import *
+from PuzzleCompare import *
 import sys
 
+sys.setrecursionlimit(10000)
 
 """ Add arguments parsing """
 
@@ -36,8 +40,24 @@ elif args.stdin:
     parse_map(sys.stdin)
 else:
     Env.size = 4
-    Env.first_node = Node(None, puzzle_generator.generate_random_puzzle(4), None)
+    Env.all_nodes.append(Node(None, puzzle_generator.generate_random_puzzle(Env.size), None))
+
+heuristiques.init(Env.size)
+
+if puzzle_compare.is_solvable(Env.all_nodes[0].puzzle, heuristiques.default_puzzle):
+    print Env.all_nodes[0].puzzle
+    last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
+else:
+    last_node_solution = None
+
+if last_node_solution is None:
+    sys.stderr.write("Error: unsolvable map " + '\n')
+    sys.exit()
 
 
+
+
+print "--- Last Node ---"
+print last_node_solution
 
 

@@ -1,7 +1,7 @@
 import sys
 import re
-from node import Node
-from environment import Env
+from Node import Node
+from Env import Env
 from Puzzle import Puzzle
 
 def parse_map(map):
@@ -27,7 +27,7 @@ def parse_map(map):
         sys.exit()
 
     parse_map_value(puzzle)
-    Env.first_node = Node(None, Puzzle(puzzle), None )
+    Env.all_nodes.append(Node(None, Puzzle(puzzle), None))
 
 def to_int(char):
     return int(char)

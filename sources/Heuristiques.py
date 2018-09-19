@@ -7,7 +7,7 @@ class Heuristiques:
 
 
     def __init__(self):
-        self.current_heuristique = ""
+        self.current_heuristique = HeuristiquesType.manhattan
         self.default_puzzle = None
         self.default_is_before_table = []
 
@@ -38,15 +38,7 @@ class Heuristiques:
         if self.current_heuristique == HeuristiquesType.melange and len(self.default_is_before_table) == 0:
             self.default_is_before_table = self.create_before_table(self.default_puzzle)
 
-    def change_heuristique(self, heuristique):
-        if self.current_heuristique is not heuristique:
-            self.current_heuristique = heuristique
-            self.default_is_before_table = []
-
-    """ PUBLIC METHODS """
-
     def manhattan(self, puzzle):
-        self.change_heuristique(HeuristiquesType.manhattan)
         self.check_default(puzzle)
         tot = 0
         for i in range(puzzle.size * puzzle.size):
@@ -55,10 +47,30 @@ class Heuristiques:
         return tot
 
     def melange(self, puzzle):
-        self.change_heuristique(HeuristiquesType.melange)
         self.check_default(puzzle)
-
         return is_before_table
+
+    """ PUBLIC METHODS """
+
+    def init(self, puzzle_size):
+        self.default_puzzle = puzzle_generator.generate_puzzle(puzzle_size)
+        
+
+    def change_heuristique(self, heuristique):
+        if self.current_heuristique is not heuristique:
+            self.current_heuristique = heuristique
+            self.default_is_before_table = []
+
+
+
+    def calcul_heuristique(self, puzzle):
+        tab = {
+            HeuristiquesType.manhattan : self.manhattan,
+            HeuristiquesType.melange : self.melange,
+        }
+        return tab[self.current_heuristique](puzzle)
+
+
     
 class HeuristiquesType:
     manhattan = "manhattan"
@@ -66,6 +78,6 @@ class HeuristiquesType:
 
 heuristiques = Heuristiques()
 
-polo = puzzle_generator.generate_random_puzzle(3)
-print polo
-print str(heuristiques.manhattan(polo))
+# polo = puzzle_generator.generate_random_puzzle(3)
+# print polo
+# print str(heuristiques.manhattan(polo))

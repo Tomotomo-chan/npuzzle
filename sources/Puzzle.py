@@ -31,7 +31,7 @@ class Puzzle:
 		self.puzzle = puzzle
 		self.size = len(puzzle)
 		self.value_max = self.size**2
-		self.hash = puzzle.__hash__
+		self.hash = str(puzzle).__hash__()
 	
 	def __str__(self):
 		string = ''
@@ -95,6 +95,7 @@ class Puzzle:
 		}
 
 		options[move](piece_index)
+		self.hash = str(self.puzzle).__hash__()
 		return
 
 	'Move the piece at index up'

@@ -10,6 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
+from Heuristiques import heuristiques
 
 class Node:
 
@@ -26,24 +27,26 @@ class Node:
 		self.movement = movement
 
 		if parent is not None:
-			parent.toggleOpen(False)
+			parent.toggle_open(False)
 			self.dist_from_start = parent.dist_from_start + 1
 		else:
 			self.dist_from_start = 0
 
-		self.dist_heuristic = 0 # TEMP : TO CALCUL
+		self.dist_heuristic = heuristiques.calcul_heuristique(puzzle)
+		self.fn = self.dist_heuristic + self.dist_from_start
 
 		Node.nb_node += 1
-		print str(self)
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
 		+ 'dist from start: ' + str(self.dist_from_start) + '\n'
 		+ 'dist heuristic: ' + str(self.dist_heuristic) + '\n'
+		+ 'hash: ' + str(self.puzzle.hash) + '\n'
 		+ 'Puzzle: \n' + str(self.puzzle))
 
+
 	'change the <open> status of the node'
-	def toggleOpen(self, value):
+	def toggle_open(self, value):
 		if self.open != value:
 			if value:
 				Node.nb_node_open += 1
