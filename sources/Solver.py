@@ -16,8 +16,8 @@ class Solver:
 		count = 0
 		while (len(env.opened_nodes) is not 0):
 			count += 1
-			if count % 100 is 0:
-				print str(count) + ' ' + str(len(env.opened_nodes)) + ' ' + str(len(env.closed_nodes)) + ' ' + str(len(env.all_nodes))
+			if count % 1000 is 0:
+				print str(count) + ' -> nodes : ' + str(len(env.all_nodes)) + ', opened : ' + str(len(env.all_nodes)- len(env.closed_nodes))
 
 			node = self.find_viable_node_with_a_star()
 			if node is None:
@@ -36,10 +36,6 @@ class Solver:
 				
 				new_node = Node(node, new_puzzle, move)
 				env.add_open_node(new_node)
-				# print "--- node created ---"
-				# print move
-				# print new_node
-				# print "---"
 			env.close_node(node)
 
 		return None
