@@ -15,7 +15,7 @@ class Solver:
 
 	def find_tree_solution(self):
 		count = 0
-		while (len(env.opened_nodes) is not 0):
+		while (42):
 			count += 1
 			if count % 1000 is 0:
 				log.default(str(count)
