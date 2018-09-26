@@ -4,26 +4,26 @@ class Env:
 	def __init__(self):
 		self.size = 0
 		self.all_nodes = []
-		self.opened_nodes = []
+		self.opened_nodes = {}
 		self.closed_nodes = []
 
 	def close_node(self, node):
-		self.opened_nodes.remove(node)
+		self.opened_nodes[node.fn].remove(node)
 		self.closed_nodes.append(node)
 
 	def add_open_node(self, node):
-"""__________________remove the hash comparaison_______________________"""
-		# if not self.node_exist(node):
-		# 	self.all_nodes.append(node)
-		# 	self.opened_nodes.append(node)
+		self.opened_nodes.setdefault(node.fn, [])
+		self.opened_nodes[node.fn].append(node)
 		self.all_nodes.append(node)
-		self.opened_nodes.append(node)
 		return
 
-	def node_exist(self, new_node):
-		for node in self.opened_nodes + self.closed_nodes:
-			 if node.puzzle.hash == new_node.puzzle.hash:
-				 return True
-		return False
+	def get_smaller_nodes(self):
+		smaller = None
+		for (value, nodes) in self.opened_nodes.items():
+			if smaller is None and len(nodes) > 0:
+				smaller = value
+			elif value < smaller and len(nodes) > 0:
+				smaller = value
+		return self.opened_nodes[smaller]
 
 env = Env()

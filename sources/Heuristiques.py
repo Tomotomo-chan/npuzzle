@@ -43,7 +43,7 @@ class Heuristiques:
         tot = 0
         for i in range(1, puzzle.size * puzzle.size):
             dist = puzzle_compare.nb_move_needed_for_value(i, self.default_puzzle, puzzle)
-"""________________try manhanttan caree_____________"""
+# """________________try manhanttan caree_____________"""
             # tot += dist**2
             tot += dist**2
         return tot
@@ -67,8 +67,6 @@ class Heuristiques:
         if self.current_heuristique is not heuristique:
             self.current_heuristique = heuristique
             self.default_is_before_table = []
-
-
 
     def calcul_heuristique(self, puzzle):
         tab = {

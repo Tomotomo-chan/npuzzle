@@ -45,15 +45,10 @@ class Solver:
 		return None
 
 	def find_viable_node_with_a_star(self):
-		tmp_node = None
-		for n in env.opened_nodes:
-			if tmp_node is None:
-				tmp_node = n
-			elif n.fn < tmp_node.fn:
-				tmp_node = n
-			elif n.fn == tmp_node.fn and n.dist_heuristic < tmp_node.dist_heuristic:
-				tmp_node = n
-		return tmp_node
+		smaller_nodes = env.get_smaller_nodes()
+		if smaller_nodes:
+			return smaller_nodes[0]
+		return None
 
 	def is_solution(self, node):
 		return node.dist_heuristic is 0

@@ -42,7 +42,7 @@ if args.file:
 elif args.stdin:
     start_puzzle = parse_map(sys.stdin) 
 else:
-    env.size = 3
+    env.size = 4
     start_puzzle = puzzle_generator.generate_random_puzzle(env.size)
 
 env.add_open_node( Node(None, start_puzzle, None))
