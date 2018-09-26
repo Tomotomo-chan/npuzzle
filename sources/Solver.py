@@ -17,7 +17,7 @@ class Solver:
 		while (len(env.opened_nodes) is not 0):
 			count += 1
 			if count % 1000 is 0:
-				print str(count) + ' -> nodes : ' + str(len(env.all_nodes)) + ', opened : ' + str(len(env.all_nodes)- len(env.closed_nodes))
+				print str(count) + ' -> nodes : ' + str(env.nodes_count) + ', opened : ' + str(env.nodes_count- env.closed_nodes_count)
 
 			node = self.find_viable_node_with_a_star()
 			if node is None:
@@ -52,8 +52,8 @@ class Solver:
 	def get_puzzle_solution(self, heuristic):
 		heuristiques.change_heuristique(heuristic)
 
-		if self.is_solution(env.all_nodes[0]):
-			return env.all_nodes[0]
+		# if self.is_solution(env.first_puzzle):
+		# 	return env.first_puzzle
 
 		return self.find_tree_solution()
 

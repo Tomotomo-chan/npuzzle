@@ -34,23 +34,22 @@ args = parser.parse_args()
 
 """ Create the first node from differents sources store it in the env class """
 
-start_puzzle = None
 size = 0
 
 if args.file:
-    start_puzzle = parse_map(args.file)
+    env.first_puzzle = parse_map(args.file)
 elif args.stdin:
-    start_puzzle = parse_map(sys.stdin) 
+    env.first_puzzle = parse_map(sys.stdin) 
 else:
     env.size = 4
-    start_puzzle = puzzle_generator.generate_random_puzzle(env.size)
+    env.first_puzzle = puzzle_generator.generate_random_puzzle(env.size)
 
-env.add_open_node( Node(None, start_puzzle, None))
+env.add_open_node( Node(None, env.first_puzzle, None))
 
 heuristiques.init(env.size)
 
-if puzzle_compare.is_solvable(env.all_nodes[0].puzzle, heuristiques.default_puzzle):
-    print env.all_nodes[0].puzzle
+if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
+    print env.first_puzzle
     last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
     """ chose de heuristic """
     # if (args.man):
