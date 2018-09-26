@@ -43,7 +43,9 @@ class Heuristiques:
         tot = 0
         for i in range(1, puzzle.size * puzzle.size):
             dist = puzzle_compare.nb_move_needed_for_value(i, self.default_puzzle, puzzle)
-            tot += dist
+"""________________try manhanttan caree_____________"""
+            # tot += dist**2
+            tot += dist**2
         return tot
 
     def melange(self, puzzle):

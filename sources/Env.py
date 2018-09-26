@@ -12,9 +12,12 @@ class Env:
 		self.closed_nodes.append(node)
 
 	def add_open_node(self, node):
-		if not self.node_exist(node):
-			self.all_nodes.append(node)
-			self.opened_nodes.append(node)
+"""__________________remove the hash comparaison_______________________"""
+		# if not self.node_exist(node):
+		# 	self.all_nodes.append(node)
+		# 	self.opened_nodes.append(node)
+		self.all_nodes.append(node)
+		self.opened_nodes.append(node)
 		return
 
 	def node_exist(self, new_node):

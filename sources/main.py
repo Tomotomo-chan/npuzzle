@@ -51,10 +51,12 @@ heuristiques.init(env.size)
 
 if puzzle_compare.is_solvable(env.all_nodes[0].puzzle, heuristiques.default_puzzle):
     print env.all_nodes[0].puzzle
-    if (args.man):
-        last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
-    else:
-        last_node_solution = solver.get_puzzle_solution(HeuristiquesType.melange)
+    last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
+    """ chose de heuristic """
+    # if (args.man):
+    #     last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
+    # else:
+    #     last_node_solution = solver.get_puzzle_solution(HeuristiquesType.melange)
 else:
     last_node_solution = None
 

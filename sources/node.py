@@ -28,7 +28,8 @@ class Node:
 			self.dist_from_start = 0
 
 		self.dist_heuristic = heuristiques.calcul_heuristique(puzzle)
-		self.fn = self.dist_heuristic + self.dist_from_start
+		# self.fn = self.dist_heuristic + self.dist_from_start
+		self.fn = self.dist_heuristic
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
