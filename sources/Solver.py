@@ -2,6 +2,7 @@
 from Puzzle import Puzzle
 from Node import Node
 from Env import env
+from Log import log
 from Heuristiques import *
 from PuzzleMovement import *
 import sys
@@ -17,7 +18,9 @@ class Solver:
 		while (len(env.opened_nodes) is not 0):
 			count += 1
 			if count % 1000 is 0:
-				print str(count) + ' -> nodes : ' + str(env.nodes_count) + ', opened : ' + str(env.nodes_count- env.closed_nodes_count)
+				log.default(str(count)
+				+ ' -> nodes : ' + str(env.nodes_count)
+				+ ', opened : ' + str(env.nodes_count- env.closed_nodes_count))
 
 			node = self.find_viable_node_with_a_star()
 			if node is None:

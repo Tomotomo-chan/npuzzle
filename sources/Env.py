@@ -4,7 +4,10 @@ class Env:
 	def __init__(self):
 		self.size = 0
 		self.first_puzzle = None
+
+		self.all_nodes = []
 		self.opened_nodes = {0: []} # {heuristique_value: [nodes_with_this_heuristic]}
+
 		self.closed_nodes_count = 0
 		self.nodes_count = 0
 
@@ -15,6 +18,7 @@ class Env:
 	def add_open_node(self, node):
 		self.opened_nodes.setdefault(node.fn, [])
 		self.opened_nodes[node.fn].append(node)
+		self.all_nodes.append(node)
 		self.nodes_count += 1
 		return
 

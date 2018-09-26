@@ -20,6 +20,7 @@ from Solver import *
 from Heuristiques import *
 from PuzzleCompare import *
 import sys
+from Log import log
 
 sys.setrecursionlimit(20000)
 
@@ -44,14 +45,13 @@ else:
     env.size = 4
     env.first_puzzle = puzzle_generator.generate_random_puzzle(env.size)
 
-env.add_open_node( Node(None, env.first_puzzle, None))
-
+env.add_open_node(Node(None, env.first_puzzle, None))
 heuristiques.init(env.size)
 
 if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
     print env.first_puzzle
     last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
-    """ chose de heuristic """
+    # """ chose de heuristic """
     # if (args.man):
     #     last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
     # else:
@@ -60,13 +60,11 @@ else:
     last_node_solution = None
 
 if last_node_solution is None:
-    sys.stderr.write("Error: unsolvable map " + '\n')
-    sys.exit()
-
-
-
+    log.error("Error: unsolvable map " + '\n')
+    sys.exit(1)
 
 print "--- Last Node ---"
 print last_node_solution
 
+sys.exit(0)
 
