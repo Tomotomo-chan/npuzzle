@@ -32,8 +32,8 @@ group2.add_argument("-e1","--manhattan", action="store_true", help="heuristique 
 group2.add_argument("-e2","--melange", action="store_true", help="heuristique melange")
 group2.add_argument("-e3","--manhattan_square", action="store_true", help="heuristique manhattan square (default)")
 group.add_argument("-f", "--file", type=file, help="read map from file")
-group.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
 group.add_argument("-i", "--stdin", action="store_true", help="read map on standard input")
+parser.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
 parser.add_argument('map_size', type=int, nargs='?', default=3,
                     help='the size of the map we want to creat (default 3)')
 parser.add_argument("-q","--quiet", action="store_true", help="if quiet, solution step by step will be store on soluce.txt")
@@ -58,7 +58,6 @@ heuristiques.init(env.size)
 
 if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
     print env.first_puzzle
-    last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
     """ chose de heuristic """
     if args.manhattan:
         last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)

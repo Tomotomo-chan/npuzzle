@@ -5,7 +5,6 @@ from PuzzleCompare import puzzle_compare
 
 class Heuristiques:
 
-
     def __init__(self):
         self.current_heuristique = HeuristiquesType.manhattan
         self.default_puzzle = None
@@ -78,6 +77,7 @@ class Heuristiques:
         tab = {
             HeuristiquesType.manhattan : self.manhattan,
             HeuristiquesType.melange : self.melange,
+            HeuristiquesType.manhattan_square: self.manhattan_square
         }
         return tab[self.current_heuristique](puzzle)
 
@@ -89,7 +89,3 @@ class HeuristiquesType:
     manhattan_square = "manhattan_square"
 
 heuristiques = Heuristiques()
-
-# polo = puzzle_generator.generate_random_puzzle(3)
-# print polo
-# print str(heuristiques.manhattan(polo))

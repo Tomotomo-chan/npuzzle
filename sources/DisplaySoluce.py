@@ -6,24 +6,27 @@ def displaySoluce(all, last_node):
 	print "\n_____One solution found_____"
 	print "heuristic : " + heuristiques.current_heuristique
 	print "number of moves : " + str(last_node.dist_from_start)
-	print "total node created : " + str(env.all_nodes.__len__())
+	print "total node created : " + str(len(env.all_nodes))
 	node = last_node
 	res = []
 	file = open("soluce.txt","w")
 	while (node):
 		res.append(node)
 		node = node.parent
-	i = res.__len__()
+	# i = len(res)
 	# while (i != 0):
 	# 	print "\n" + str(res[i - i])
 	# 	i -= 1
-	while i != 0:
+	for state in reversed(res):
 		if all:
-			file.write(res[i-1].__str__())
-			file.write('\n\n')
+			if state.movement:
+				file.write(str(state.movement))
+			file.write(str(state.puzzle))
+			file.write('\n')
 		else:
-			print res[i-1]
+			if state.movement:
+				print state.movement
+			print state.puzzle
 			print '\n'
-		i -= 1
 
 	file.close()

@@ -63,8 +63,3 @@ class Node:
 		if isinstance(other, Node):
 			return self.puzzle.hash >= other.puzzle.hash
 		return False
-
-
-## EXAMPLE
-# node = Node(None, [], None)
-# print node

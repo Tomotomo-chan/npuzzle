@@ -24,7 +24,7 @@ class Env:
 		self.all_nodes.append(node)
 		self.nodes_count += 1
 		return
-	
+
 	def smart_insert_node(self, node_list_index, node):
 		"""
 		Insert a node
