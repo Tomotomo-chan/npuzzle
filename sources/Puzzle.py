@@ -49,10 +49,15 @@ class Puzzle:
 	'Get the index of the piece with the given value if it exist'
 	def get_piece_index(self, value):
 		for line_index in range(self.size):
-			for col_index in range(self.size):
-				if self.puzzle[line_index][col_index] is value:
-					return PuzzleIndex(line_index, col_index)
-		return None
+			try:
+				col_index = self.puzzle[line_index].index(value)
+				break
+			except:
+				col_index = None
+		
+		if line_index is None or col_index is None:
+			return None
+		return PuzzleIndex(line_index, col_index)
 
 	def get_value_at_index(self, index):
 		return self.puzzle[index.line][index.column]
