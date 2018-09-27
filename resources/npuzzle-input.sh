@@ -1,7 +1,7 @@
 #!/bin/bash
 
 typeset DIR="/home/tomoko/Documents/Ecole/npuzzle/"
-typeset NAME="sources/main.py"
+typeset NAME="npuzzle.py"
 typeset FILE_OPTION="-f"
 
 typeset NPUZZLE="${DIR}/${NAME}"
