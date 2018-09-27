@@ -28,15 +28,17 @@ class Node:
 			self.dist_from_start = 0
 
 		self.dist_heuristic = heuristiques.calcul_heuristique(puzzle)
-		# self.fn = self.dist_heuristic + self.dist_from_start
-		self.fn = self.dist_heuristic
+		self.fn = self.dist_heuristic + self.dist_from_start
 
-	def __str__(self):
+	def str_all(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
 		+ 'dist from start: ' + str(self.dist_from_start) + '\n'
 		+ 'dist heuristic: ' + str(self.dist_heuristic) + '\n'
 		+ 'hash: ' + str(self.puzzle.hash) + '\n'
 		+ 'Puzzle: \n' + str(self.puzzle))
+
+	def __str__(self):
+		return(str(self.puzzle))
 
 
 
