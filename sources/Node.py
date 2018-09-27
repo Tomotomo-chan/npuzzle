@@ -32,11 +32,37 @@ class Node:
 
 	def __str__(self):
 		return ('Etat: ' + ('open' if self.open else 'close') + '\n'
-		+ 'dist from start: ' + str(self.dist_from_start) + '\n'
-		+ 'dist heuristic: ' + str(self.dist_heuristic) + '\n'
-		+ 'hash: ' + str(self.puzzle.hash) + '\n'
-		+ 'Puzzle: \n' + str(self.puzzle))
+		# + 'dist from start: ' + str(self.dist_from_start) + '\n'
+		# + 'dist heuristic: ' + str(self.dist_heuristic) + '\n'
+		+ 'hash: ' + str(self.puzzle.hash) + '\n')
 
+	def __eq__(self, other):
+		if isinstance(other, Node):
+			return other.puzzle.hash == self.puzzle.hash
+		return False
+
+	def __ne__(self, other):
+		return not self.__eq__(other)
+
+	def __lt__(self, other):
+		if isinstance(other, Node):
+			return self.puzzle.hash < other.puzzle.hash
+		return False
+	
+	def __gt__(self, other):
+		if isinstance(other, Node):
+			return self.puzzle.hash > other.puzzle.hash
+		return False
+
+	def __le__(self, other):
+		if isinstance(other, Node):
+			return self.puzzle.hash <= other.puzzle.hash
+		return False
+	
+	def __ge__(self, other):
+		if isinstance(other, Node):
+			return self.puzzle.hash >= other.puzzle.hash
+		return False
 
 
 ## EXAMPLE

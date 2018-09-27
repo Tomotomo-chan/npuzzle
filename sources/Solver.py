@@ -18,8 +18,8 @@ class Solver:
 		while (42):
 			count += 1
 			if count % 1000 is 0:
-				log.default(str(count)
-				+ ' -> nodes : ' + str(env.nodes_count)
+				log.debug(str(count)
+				+ ' tries -> nodes : ' + str(env.nodes_count)
 				+ ', opened : ' + str(env.nodes_count- env.closed_nodes_count))
 
 			node = self.find_viable_node_with_a_star()
@@ -32,7 +32,7 @@ class Solver:
 			available_movements = node.puzzle.get_available_movements(Puzzle.empty_piece)
 
 			for move in available_movements:
-		   		if node.movement and move is puzzle_movement.opposite(node.movement):
+				if node.movement and move is puzzle_movement.opposite(node.movement):
 					continue
 				new_puzzle = copy.deepcopy(node.puzzle)
 				new_puzzle.apply_movement(Puzzle.empty_piece, move)

@@ -5,6 +5,7 @@ class Log:
     def __init__(self):
         self.out = sys.stdout
         self.err = sys.stderr
+        self.verbose = False
 
     def error(self, string):
         try:
@@ -17,5 +18,9 @@ class Log:
             self.out.write(str(string) + "\n")
         except:
             return
+    
+    def debug(self, string):
+        if self.verbose:
+            self.default(string)
 
 log = Log()

@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser()
 group = parser.add_mutually_exclusive_group()
 parser.add_argument("-m","--man", action="store_true")
 group.add_argument("-f", "--file", type=file, help="read map from file")
+group.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
 group.add_argument("-i", "--stdin", action="store_true", help="read map on standard input")
 args = parser.parse_args()
 
@@ -37,6 +38,8 @@ args = parser.parse_args()
 
 size = 0
 
+if args.verbose:
+    log.verbose = True
 if args.file:
     env.first_puzzle = parse_map(args.file)
 elif args.stdin:
@@ -65,6 +68,7 @@ if last_node_solution is None:
 
 print "--- Last Node ---"
 print last_node_solution
+print last_node_solution.puzzle
 
 sys.exit(0)
 
