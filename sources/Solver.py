@@ -2,6 +2,7 @@
 from Puzzle import Puzzle
 from Node import Node
 from Env import env
+from Log import log
 from Heuristiques import *
 from PuzzleMovement import *
 import sys
@@ -14,10 +15,12 @@ class Solver:
 
 	def find_tree_solution(self):
 		count = 0
-		while (len(env.opened_nodes) is not 0):
+		while (42):
 			count += 1
-			if count % 10000 is 0:
-				print str(count) + ' ' + str(len(env.opened_nodes)) + ' ' + str(len(env.closed_nodes)) + ' ' + str(len(env.all_nodes))
+			if count % 1000 is 0:
+				log.default(str(count)
+				+ ' -> nodes : ' + str(env.nodes_count)
+				+ ', opened : ' + str(env.nodes_count- env.closed_nodes_count))
 
 			node = self.find_viable_node_with_a_star()
 			if node is None:
@@ -36,10 +39,6 @@ class Solver:
 				
 				new_node = Node(node, new_puzzle, move)
 				env.add_open_node(new_node)
-				# print "--- node created ---"
-				# print move
-				# print new_node
-				# print "---"
 			env.close_node(node)
 
 		return None
@@ -56,8 +55,8 @@ class Solver:
 	def get_puzzle_solution(self, heuristic):
 		heuristiques.change_heuristique(heuristic)
 
-		if self.is_solution(env.all_nodes[0]):
-			return env.all_nodes[0]
+		# if self.is_solution(env.first_puzzle):
+		# 	return env.first_puzzle
 
 		return self.find_tree_solution()
 

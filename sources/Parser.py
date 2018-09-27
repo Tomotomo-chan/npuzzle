@@ -1,5 +1,6 @@
-import sys
 import re
+import sys
+from Log import log
 from Node import Node
 from Env import env
 from Puzzle import Puzzle
@@ -16,15 +17,15 @@ def parse_map(map):
         if first is not True:
             puzzle.append(parse_line(line_util))
             if (len(puzzle) > env.size):
-                sys.stderr.write("Error: parsing map. Too many lines " + '\n')
-                sys.exit()
+                log.error("parsing map. Too many lines")
+                sys.exit(1)
         else:
             first = False
             parse_line(line_util)
 
     if (len(puzzle) < env.size):
-        sys.stderr.write("Error: parsing map. Not Enought Lines " + '\n')
-        sys.exit()
+        log.error("parsing map. Not Enought Lines")
+        sys.exit(1)
 
     parse_map_value(puzzle)
     return Puzzle(puzzle)
@@ -34,23 +35,23 @@ def to_int(char):
 
 def parse_line(line):
     if (len(re.findall(r"([^\d\s]+)", line)) > 0):
-        sys.stderr.write("Error: parsing line (bad character found) " + line + '\n')
-        sys.exit()
+        log.error("parsing line (bad character found) " + line)
+        sys.exit(1)
 
     m = re.findall(r"(\s*-?\d+)", line)
     if (parse_line.first is True):
         parse_line.first = False
         if len(m) != 1:
-            sys.stderr.write("Error: parsing map. First Line must be the map size " + '\n')
-            sys.exit()
+            log.error("parsing map. First Line must be the map size")
+            sys.exit(1)
         env.size = int(m[0])
     else:
         if len(m) < env.size:
-            sys.stderr.write("Error: parsing map. not enought numbers at line : " + line + '\n')
-            sys.exit()
+            log.error("parsing map. not enought numbers at line : " + line)
+            sys.exit(1)
         elif len(m) > env.size:
-            sys.stderr.write("Error: parsing map. too many numbers at line : " + line + '\n')
-            sys.exit()
+            log.error("parsing map. too many numbers at line : " + line)
+            sys.exit(1)
         return [ to_int(num) for num in m ]
 
 parse_line.first = True
@@ -61,11 +62,11 @@ def parse_map_value(puzzle):
     for line in puzzle:
         for num in line:
             if num >= env.size * env.size:
-                sys.stderr.write("Error: parsing map. value find to high : " + str(num) + '\n')
-                sys.exit()
+                log.error("parsing map. value find to high : " + str(num))
+                sys.exit(1)
             if value[num] == 1:
-                sys.stderr.write("Error: parsing map. value find multiple time : " + str(num) + '\n')
-                sys.exit()
+                log.error("parsing map. value find multiple time : " + str(num))
+                sys.exit(1)
             value[num] = 1
     return
 
