@@ -16,7 +16,7 @@ class Solver:
 		count = 0
 		while (len(env.opened_nodes) is not 0):
 			count += 1
-			if count % 100 is 0:
+			if count % 10000 is 0:
 				print str(count) + ' ' + str(len(env.opened_nodes)) + ' ' + str(len(env.closed_nodes)) + ' ' + str(len(env.all_nodes))
 
 			node = self.find_viable_node_with_a_star()
