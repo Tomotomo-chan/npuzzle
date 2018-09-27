@@ -23,6 +23,22 @@ from sources.DisplaySoluce import displaySoluce
 from sources.Log import log
 import sys
 
+def get_heuristique_from_args(args):
+    if args.manhattan:
+        return HeuristiqueType.manhattan
+    elif args.melange:
+        return HeuristiquesType.melange
+    else:
+        return HeuristiquesType.manhattan_square
+
+def get_first_puzzle_from_args(args):
+    if args.file:
+        return parse_map(args.file)
+    elif args.stdin:
+        return parse_map(sys.stdin)
+    else:
+        return puzzle_generator.generate_random_puzzle(env.size)
+
 """ Add arguments parsing """
 
 parser = argparse.ArgumentParser()
@@ -33,9 +49,9 @@ group2.add_argument("-e2","--melange", action="store_true", help="heuristique me
 group2.add_argument("-e3","--manhattan_square", action="store_true", help="heuristique manhattan square (default)")
 group.add_argument("-f", "--file", type=file, help="read map from file")
 group.add_argument("-i", "--stdin", action="store_true", help="read map on standard input")
+group.add_argument('map_size', type=int, nargs='?', default=3,
+                    help='the size of the map we want to create (default 3)')
 parser.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
-parser.add_argument('map_size', type=int, nargs='?', default=3,
-                    help='the size of the map we want to creat (default 3)')
 parser.add_argument("-q","--quiet", action="store_true", help="if quiet, solution step by step will be store on soluce.txt")
 args = parser.parse_args()
 
@@ -45,28 +61,19 @@ size = 0
 
 if args.verbose:
     log.verbose = True
-if args.file:
-    env.first_puzzle = parse_map(args.file)
-elif args.stdin:
-    env.first_puzzle = parse_map(sys.stdin) 
-else:
-    env.size = args.map_size
-    env.first_puzzle = puzzle_generator.generate_random_puzzle(env.size)
+
+env.size = args.map_size
+env.first_puzzle = get_first_puzzle_from_args(args)
 
 env.add_open_node(Node(None, env.first_puzzle, None))
+
 heuristiques.init(env.size)
 
+last_node_solution = None
 if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
-    print env.first_puzzle
-    """ chose de heuristic """
-    if args.manhattan:
-        last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan)
-    elif args.melange:
-        last_node_solution = solver.get_puzzle_solution(HeuristiquesType.melange)
-    else:
-        last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan_square)
-else:
-    last_node_solution = None
+    log.default(env.first_puzzle)
+    heuristique = get_heuristique_from_args(args)
+    last_node_solution = solver.get_puzzle_solution(heuristique)
 
 if last_node_solution is None:
     log.error("Error: unsolvable map " + '\n')
