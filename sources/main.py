@@ -63,7 +63,6 @@ if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
         last_node_solution = solver.get_puzzle_solution(HeuristiquesType.melange)
     else:
         last_node_solution = solver.get_puzzle_solution(HeuristiquesType.manhattan_square)
-c5a7e6b9b78a57f7f8fdac3e71ddac772f7c43
 else:
     last_node_solution = None
 
