@@ -13,20 +13,15 @@ def displaySoluce(all, last_node):
 	while (node):
 		res.append(node)
 		node = node.parent
-	# i = len(res)
-	# while (i != 0):
-	# 	print "\n" + str(res[i - i])
-	# 	i -= 1
 	for state in reversed(res):
 		if all:
-			if state.movement:
-				file.write(str(state.movement))
-			file.write(str(state.puzzle))
-			file.write('\n')
-		else:
 			if state.movement:
 				print state.movement
 			print state.puzzle
 			print '\n'
-
+		else:
+			if state.movement:
+				file.write(str(state.movement) + '\n')
+			file.write(str(state.puzzle))
+			file.write("\n\n")
 	file.close()

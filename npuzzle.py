@@ -25,7 +25,7 @@ import sys
 
 def get_heuristique_from_args(args):
     if args.manhattan:
-        return HeuristiqueType.manhattan
+        return HeuristiquesType.manhattan
     elif args.melange:
         return HeuristiquesType.melange
     else:
@@ -55,7 +55,7 @@ group2.add_argument("-e2","--melange", action="store_true", help="heuristique me
 group2.add_argument("-e3","--manhattan_square", action="store_true", help="heuristique manhattan square (default)")
 
 parser.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
-parser.add_argument("-q","--quiet", action="store_true", help="if quiet, solution step by step will be store on soluce.txt")
+parser.add_argument("-s","--show_all", action="store_true", help="if show_all, solution step by step will be print on stdout")
 args = parser.parse_args()
 
 """ Create the first node from differents sources store it in the env class """
@@ -82,5 +82,5 @@ if last_node_solution is None:
     log.error("Error: unsolvable map " + '\n')
     sys.exit(1)
 
-displaySoluce(args.quiet, last_node_solution)
+displaySoluce(args.show_all, last_node_solution)
 sys.exit(0)
