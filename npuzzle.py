@@ -73,14 +73,15 @@ env.add_open_node(Node(None, env.first_puzzle, None))
 
 heuristiques.init(env.size)
 
+log.default(env.first_puzzle)
+
 last_node_solution = None
 if puzzle_compare.is_solvable(env.first_puzzle, heuristiques.default_puzzle):
-    log.default(env.first_puzzle)
     heuristique = get_heuristique_from_args(args)
     last_node_solution = solver.get_puzzle_solution(heuristique)
 
 if last_node_solution is None:
-    log.error("Error: unsolvable map " + '\n')
+    log.error("unsolvable map ")
     sys.exit(1)
 
 displaySoluce(args.show_all, last_node_solution)
