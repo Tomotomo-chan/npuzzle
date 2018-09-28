@@ -1,3 +1,4 @@
+import sys
 import math
 from Log import log
 
@@ -15,6 +16,9 @@ class Env:
 		self.nodes_count = 0
 
 		self.max_opened_nodes = 0
+
+	def is_valid_size(self, size):
+		return size >= 2 and size < sys.maxint
 
 	def close_node(self, node):
 		self.opened_nodes[node.fn].remove(node)
