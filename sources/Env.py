@@ -11,18 +11,26 @@ class Env:
 		self.opened_nodes = {0: []} # {heuristique_value: [nodes_with_this_heuristic]}
 
 		self.closed_nodes_count = 0
+		self.opened_nodes_count = 0
 		self.nodes_count = 0
+
+		self.max_opened_nodes = 0
 
 	def close_node(self, node):
 		self.opened_nodes[node.fn].remove(node)
 		self.closed_nodes_count += 1
+		self.opened_nodes_count -= 1
 
 	def add_open_node(self, node):
 		self.opened_nodes.setdefault(node.fn, [])
 		self.smart_insert_node(node.fn, node)
-		# self.opened_nodes[node.fn].append(node)
 		self.all_nodes.append(node)
 		self.nodes_count += 1
+		self.opened_nodes_count += 1
+
+		if self.opened_nodes_count > self.max_opened_nodes:
+			self.max_opened_nodes = self.opened_nodes_count
+
 		return
 
 	def smart_insert_node(self, node_list_index, node):
@@ -62,7 +70,7 @@ class Env:
 				dist_to_low = i - limits["low"]
 				i -= int(math.ceil(dist_to_low / 2.0))
 
-		## default
+		# default
 		self.append_node(node_list_index, node)
 		return
 
