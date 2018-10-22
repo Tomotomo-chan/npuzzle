@@ -1,6 +1,6 @@
 #!/bin/bash
 
-typeset DIR="/home/tomoko/Documents/Ecole/npuzzle/"
+typeset DIR="/Users/mressier/Documents/npuzzle/"
 typeset NAME="npuzzle.py"
 typeset FILE_OPTION="-f"
 
@@ -48,6 +48,8 @@ function execute
 ##
 ## MAIN
 ##
+
+[[ -e ${DIR} ]] || { error "${DIR} doesn't exist"; exit 1; }
 
 for map in ${MAPS_FAILURE}
 do
