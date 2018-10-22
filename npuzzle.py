@@ -55,7 +55,6 @@ group2.add_argument("-e1","--manhattan", action="store_true", help="heuristique 
 group2.add_argument("-e2","--melange", action="store_true", help="heuristique melange")
 group2.add_argument("-e3","--manhattan_square", action="store_true", help="heuristique manhattan square (default)")
 
-parser.add_argument("-v", "--verbose", action="store_true", help="set verbose on") # TEMP ??
 parser.add_argument("-s","--show_all", action="store_true", help="if show_all, solution step by step will be print on stdout")
 
 try:
@@ -71,8 +70,7 @@ except:
 
 size = 0
 
-if args.verbose:
-	log.verbose = True
+log.verbose = False
 
 if env.is_valid_size(args.map_size):
 	env.size = args.map_size
